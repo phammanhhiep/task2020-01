@@ -5,7 +5,7 @@ from pandas import Series, DataFrame
 import matplotlib.pyplot as plt
 
 
-logging.basicConfig(filename="plotCovid", level=logging.DEBUG)
+logging.basicConfig(filename="plotCovid.log", level=logging.DEBUG)
 
 
 def plotCasesByStates(df, states=None):
