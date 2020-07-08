@@ -60,5 +60,3 @@ if __name__ == "__main__":
         plotCaseCountByStates(df, states)
     else:
         logging.error("{} is not valid graph name".format(graph_name))
-
-
