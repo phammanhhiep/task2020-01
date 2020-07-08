@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 logging.basicConfig(filename="plotCovid.log", level=logging.DEBUG)
 
 
-def plotCasesByStates(df, states=None):
+def plotCaseCountByStates(df, states=None):
     if not isinstance(df, DataFrame):
         raise TypeError("DataFrame is requied")
 
@@ -51,7 +51,7 @@ if __name__ == "__main__":
         states = args.states; states = states.split(",") if states else default_states
         file_name = args.input; file_name = file_name if file_name else default_input
         df = pd.read_csv(file_name)
-        plotCasesByStates(df, states)
+        plotCaseCountByStates(df, states)
     else:
         logging.error("{} is not valid graph name".format(graph_name))
 
