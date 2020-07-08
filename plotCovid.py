@@ -17,11 +17,16 @@ def plotCasesByStates(df, states=None):
         return
 
     if states is None:
-        logging.warning("States are not provided. The graph will be plotted for all states.")
+        logging.warning("States are not provided. The graph will be plotted for all states")
     else:
         df = df[df["state"].isin(states)]
 
     data = df["positive"].groupby(df["state"]).sum()
+
+    if len(data) < len(states):
+        logging.warning("{} are either not all (or not) the name of states, or some (or all) \
+            of them do not have data".format(",".join(states)))
+
     ax = data.plot.bar(title="Number of Covid-19 Cases by States")
     ax.set_ylabel("Positive Cases")
     ax.set_xlabel("States")
@@ -30,21 +35,24 @@ def plotCasesByStates(df, states=None):
 
 if __name__ == "__main__":
     default_graph = "positive_count_by_states"
+    default_states = ["NY", "OH", "CA"]
+    default_input = "us_states_covid19_daily.csv" 
+
     parser = argparse.ArgumentParser("Plot Covid")
-    parser.add_argument("--graphName", default=default_graph, help="Provide one of the name \
-        of the graphs, including, {}.".format(default_graph))
-    parser.add_argument("--states", default=None, help="A list of state names separated by commas")
-    parser.add_argument("--input", help="path to data file")
+    parser.add_argument("--graphName", default=default_graph, help="The name \
+        of one of the graphs being requested to plot. At this moment, there is only one graph, i.e. {}.".format(default_graph))
+    parser.add_argument("--states", default=None, help="A list of state names separated by commas.")
+    parser.add_argument("--input", help="The path of data file.")
 
     args = parser.parse_args()
     graph_name = args.graphName
 
     if graph_name == default_graph:
-        states = args.states; states = states.split(",") if states else ["NY", "OH", "CA"]
-        file_name = args.input; file_name = file_name if file_name else "us_states_covid19_daily.csv" 
+        states = args.states; states = states.split(",") if states else default_states
+        file_name = args.input; file_name = file_name if file_name else default_input
         df = pd.read_csv(file_name)
         plotCasesByStates(df, states)
     else:
-        logging.debug("{} is not valid graph name".format(graph_name))
+        logging.error("{} is not valid graph name".format(graph_name))
 
 
