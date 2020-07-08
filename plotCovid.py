@@ -30,6 +30,12 @@ def plotCaseCountByStates(df, states=None):
     ax = data.plot.bar(title="Number of Covid-19 Cases by States")
     ax.set_ylabel("Positive Cases")
     ax.set_xlabel("States")
+    rects = ax.patches
+    labels = ["{:,}".format(i) for i in data.values]
+    for rect, label in zip(rects, labels):
+        height = rect.get_height()
+        ax.text(rect.get_x() + rect.get_width() / 2, height + 5, label,
+                ha='center', va='bottom')    
     plt.show()
 
 
