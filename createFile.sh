@@ -9,10 +9,6 @@ dest="$default_dest"
 content="A documentation is like a joke. If you have to explain it, it is not that good."
 
 
-PARSED_ARGUMENT=$(getopt -q c:i:d: "$@")
-
-echo "$@"
-
 while [ -n "$1" ]; do
     case "$1" in
         -c) capacity="$2"
@@ -36,9 +32,9 @@ function countFiles {
 
 
 if [ ! -d $dest ]; then
-    echo "$dest does not exist or not a directory"
+    echo "[DEBUG]: $dest does not exist or not a directory"
     mkdir "$dest"
-    echo "Created $dest"
+    echo "[DEBUG]:Created directory $dest"
 fi
 
 
@@ -53,6 +49,7 @@ while [ $count -lt $capacity ]; do
         return 1
     fi
     echo $content > "$next_file"
+    echo "[DEBUG]: Created $next_file"
     count=$(countFiles)
     sleep $interval
 done
