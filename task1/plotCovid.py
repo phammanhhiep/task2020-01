@@ -34,8 +34,7 @@ def plotCaseCountByStates(df, states=None):
     labels = ["{:,}".format(i) for i in data.values]
     for rect, label in zip(rects, labels):
         height = rect.get_height()
-        ax.text(rect.get_x() + rect.get_width() / 2, height + 5, label,
-                ha='center', va='bottom')    
+        ax.text(rect.get_x() + rect.get_width() / 2, height + 5, label, ha='center', va='bottom')    
     plt.show()
 
 
@@ -45,8 +44,8 @@ if __name__ == "__main__":
     default_input = "us_states_covid19_daily.csv" 
 
     parser = argparse.ArgumentParser("Plot Covid")
-    parser.add_argument("--graphName", default=default_graph, help="The name \
-        of one of the graphs being requested to plot. At this moment, there is only one graph, i.e. {}.".format(default_graph))
+    parser.add_argument("--graphName", default=default_graph, help="The name of one of the graphs \
+        being requested to plot. At this moment, there is only one graph, i.e. {}.".format(default_graph))
     parser.add_argument("--states", default=None, help="A list of state names separated by commas.")
     parser.add_argument("--input", help="The path of data file.")
 
